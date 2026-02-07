@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SLANK</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .player {
+      width: 320px;
+      padding: 20px;
+      background: #111;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
+
+    .logo img {
+      width: 120px;
+      margin-bottom: 10px;
+      filter: grayscale(100%);
+    }
+
+    h2 {
+      margin: 10px 0 15px;
+      font-size: 20px;
+      letter-spacing: 1px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 15px;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+
+    li {
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      background: #222;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    li:hover {
+      background: #444;
+    }
+
+    li.active {
+      background: #fff;
+      color: #000;
+      font-weight: bold;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="player">
+    <div class="logo">
+      <img src="C:\Users\admin\Downloads\ab6761610000e5eba5d15944aab9b403980519e4.jpeg" alt="Logo Band Slank" />
+    </div>
+
+    <h2>SLANK</h2>
+
+    <ul id="playlist">
+     <li data-src="C:\Users\admin\Downloads\Slank - Mawar Merah (Official Lyrics Video).mp3">MAWAR MERAH</li>
+      <li data-src="C:\Users\admin\Downloads\Slank - Seperti Para Koruptor (Official Music Video).mp3">SEPERTI PARA KORUPTOR</li>
+      <li data-src="C:\Users\admin\Downloads\Slank - Terlalu Manis (Official Music Video).mp3">LERLALU MANIS</li>
+      <li data-src="C:\Users\admin\Downloads\Slank - Virus (Official Music Video).mp3">VIRUS</li>
+      <li data-src="C:\Users\admin\Downloads\Slank - Kamu Harus Pulang (Lirik).mp3">KAMU HARUS PULANG</li>
+      <li data-src="C:\Users\admin\Downloads\Slank - Poppies Lane Memory.mp3">POPPIES LANE MEMORY</li>
+      <li data-src="C:\Users\admin\Downloads\Slank - Terlalu Pahit (Official Music Video).mp3">TERLALU PAHIT</li>
+      <li data-src="C:\Users\admin\Downloads\Slank - Anyer,10 Maret.mp3">ANYER,10 MARET</li>
+      <li data-src="C:\Users\admin\Downloads\Slank - Tonk Kosong (Official Music Video).mp3">TONK KOSONG</li>
+      <li data-src="C:\Users\admin\Downloads\Slank - Balikin.mp3">BALIKIN</li>
+    </ul>
+
+    <audio id="audio" controls></audio>
+  </div>
+
+  <script>
+  const audio = document.getElementById('audio');
+  const playlist = Array.from(document.querySelectorAll('#playlist li'));
+  let currentIndex = 0;
+
+  // set lagu saat klik
+  playlist.forEach((item, index) => {
+    item.addEventListener('click', () => {
+      currentIndex = index;
+      setSong();
+      audio.play();
+    });
+  });
+
+  function setSong() {
+    playlist.forEach(li => li.classList.remove('active'));
+    playlist[currentIndex].classList.add('active');
+    audio.src = playlist[currentIndex].getAttribute('data-src');
+  }
+
+  // DETEKSI LAGU SELESAI
+  audio.onended = function () {
+    currentIndex++;
+    if (currentIndex >= playlist.length) {
+      currentIndex = 0; // balik ke awal (biar nggak mati)
+    }
+    setSong();
+    audio.play();
+  };
+</script>
+
+
+
+</body>
+</html>
